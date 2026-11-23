@@ -35,6 +35,9 @@ def actualizar_producto(id_prod: int, producto: schemas.ProductoCreate, db: Sess
 
 @router.delete("/{id_prod}", status_code=204)
 def eliminar_producto(id_prod: int, db: Session = Depends(get_db)):
-    db_obj = crud.delete_producto(db, id_prod)
+    try:
+        db_obj = crud.delete_producto(db, id_prod)
+    except crud.ProductoConInventarioError as e:
+        raise HTTPException(status_code=409, detail=str(e))
     if not db_obj:
         raise HTTPException(status_code=404, detail="Producto no encontrado")

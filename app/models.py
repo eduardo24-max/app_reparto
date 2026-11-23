@@ -12,7 +12,7 @@ class Producto(Base):
     precio = Column(Float, nullable=False)
 
     platillos = relationship("Platillo", back_populates="producto", cascade="all, delete-orphan")
-    inventario = relationship("Inventario", back_populates="producto", cascade="all, delete-orphan")
+    inventario = relationship("Inventario", back_populates="producto")
 
 
 class Trabajador(Base):

@@ -3,6 +3,11 @@ from sqlalchemy.orm import Session
 from . import models, schemas
 
 
+class ProductoConInventarioError(Exception):
+    """Se lanza al intentar eliminar un producto que todavia tiene registros en inventario."""
+    pass
+
+
 # ---------- Producto ----------
 def get_productos(db: Session, skip: int = 0, limit: int = 100):
     return db.query(models.Producto).offset(skip).limit(limit).all()
@@ -35,6 +40,17 @@ def delete_producto(db: Session, id_prod: int):
     db_obj = get_producto(db, id_prod)
     if not db_obj:
         return None
+
+    tiene_inventario = (
+        db.query(models.Inventario)
+        .filter(models.Inventario.id_prod == id_prod)
+        .first()
+    )
+    if tiene_inventario:
+        raise ProductoConInventarioError(
+            f"No se puede eliminar el producto {id_prod}: tiene registros en inventario. Elimina o reasigna el inventario primero."
+        )
+
     db.delete(db_obj)
     db.commit()
     return db_obj
