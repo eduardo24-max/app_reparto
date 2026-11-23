@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Kraken Rolls — Panel</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">🐙 Kraken Rolls</div>
+    <nav class="tabs">
+      <button class="tab-btn active" data-tab="productos">Productos</button>
+      <button class="tab-btn" data-tab="platillos">Platillos</button>
+      <button class="tab-btn" data-tab="trabajadores">Trabajadores</button>
+      <button class="tab-btn" data-tab="inventario">Inventario</button>
+    </nav>
+  </header>
+
+  <main>
+    <!-- PRODUCTOS -->
+    <section class="panel active" id="panel-productos">
+      <div class="panel-head">
+        <h2>Productos</h2>
+        <button class="btn-primary" onclick="openForm('productos')">+ Nuevo producto</button>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Nombre</th><th>Precio</th><th></th></tr></thead>
+        <tbody id="tbody-productos"></tbody>
+      </table>
+    </section>
+
+    <!-- PLATILLOS -->
+    <section class="panel" id="panel-platillos">
+      <div class="panel-head">
+        <h2>Platillos</h2>
+        <button class="btn-primary" onclick="openForm('platillos')">+ Nuevo platillo</button>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Nombre</th><th>Precio</th><th>Producto</th><th>Trabajador</th><th></th></tr></thead>
+        <tbody id="tbody-platillos"></tbody>
+      </table>
+    </section>
+
+    <!-- TRABAJADORES -->
+    <section class="panel" id="panel-trabajadores">
+      <div class="panel-head">
+        <h2>Trabajadores</h2>
+        <button class="btn-primary" onclick="openForm('trabajadores')">+ Nuevo trabajador</button>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Nombre</th><th>Teléfono</th><th>Puesto</th><th></th></tr></thead>
+        <tbody id="tbody-trabajadores"></tbody>
+      </table>
+    </section>
+
+    <!-- INVENTARIO -->
+    <section class="panel" id="panel-inventario">
+      <div class="panel-head">
+        <h2>Inventario</h2>
+        <button class="btn-primary" onclick="openForm('inventario')">+ Nuevo registro</button>
+      </div>
+      <table>
+        <thead><tr><th>ID</th><th>Producto</th><th>Cantidad</th><th></th></tr></thead>
+        <tbody id="tbody-inventario"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <!-- Modal genérico para crear/editar -->
+  <div class="modal-overlay" id="modal-overlay">
+    <div class="modal">
+      <h3 id="modal-title">Nuevo</h3>
+      <form id="modal-form"></form>
+      <div class="modal-actions">
+        <button class="btn-secondary" onclick="closeForm()">Cancelar</button>
+        <button class="btn-primary" onclick="submitForm()">Guardar</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
